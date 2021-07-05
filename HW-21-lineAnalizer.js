@@ -1,6 +1,5 @@
-class Stack {
-  constructor() {}
-  brackets = [];
+class Brackets{
+  constructor (){}
   openBracket(val) {
     return val == "(" || val == "{" || val == "[";
   }
@@ -18,22 +17,38 @@ class Stack {
       return true;
     }
   }
+}
+
+class Stack {
+  constructor() {}
+  brackets = [];
+  newbrackets = new Brackets();
   ckeck(string) {
     for (let i = 0; i < string.length; ++i){
       let s = this.brackets[this.brackets.length-1];
-      if (this.openBracket(string[i])){
+      if (this.newbrackets.openBracket(string[i])){
         this.brackets.push(string[i]);
       } else 
-      if (this.closeBracket(string[i])){
-        if (this.currectBracket(s, string[i])){
+      if (this.newbrackets.closeBracket(string[i])){
+        if (this.newbrackets.currectBracket(s, string[i])){
           this.brackets.pop();
         } else
-        return false;
+        throw new Error("Invalid brackets");
       } 
     }
-    return this.brackets.length ? false : true;
+    if (this.brackets.length) {
+      // return false;
+      throw new Error("Invalid brackets");
+    } else {
+      return true;
+    }
+    // return this.brackets.length ? throw new Error("Invalid brackets"): true;
   }
 }
-const newStack = new Stack();
+
+// const newStack = new Stack();
+module.exports = {
+  newStack: new Stack()
+}
 // console.log(newStack);
-console.log(newStack.ckeck("[(({))]"));
+// console.log(newStack.ckeck("[(())]{"));
