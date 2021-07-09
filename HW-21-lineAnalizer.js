@@ -1,5 +1,21 @@
-class Brackets{
-  constructor (){}
+class Stack {
+  constructor(){}
+  brackets = [];
+  push(val){
+    this.brackets.push(val);
+  }
+  pop(){
+    return this.brackets.pop();
+  }
+  isEmpty(){
+    return this.brackets.length == 0;
+  }
+}
+class Brackets extends Stack{
+  constructor (){
+    super();
+  }
+  
   openBracket(val) {
     return val == "(" || val == "{" || val == "[";
   }
@@ -17,26 +33,25 @@ class Brackets{
       return true;
     }
   }
-}
-
-class Stack {
-  constructor() {}
-  brackets = [];
-  newbrackets = new Brackets();
   ckeck(string) {
     for (let i = 0; i < string.length; ++i){
       let s = this.brackets[this.brackets.length-1];
-      if (this.newbrackets.openBracket(string[i])){
+      // console.log(s);
+      if (this.openBracket(string[i])){
         this.brackets.push(string[i]);
+        console.log(this.brackets);
       } else 
-      if (this.newbrackets.closeBracket(string[i])){
-        if (this.newbrackets.currectBracket(s, string[i])){
+      if (this.closeBracket(string[i])){
+        if (this.currectBracket(s, string[i])){
           this.brackets.pop();
+          console.log(this.brackets);
         } else
         throw new Error("Invalid brackets");
       } 
     }
-    if (this.brackets.length) {
+   let status = this.brackets.isEmpty;
+   console.log("status:" + status);
+    if (this.brackets.isEmpty) {
       // return false;
       throw new Error("Invalid brackets");
     } else {
@@ -46,9 +61,10 @@ class Stack {
   }
 }
 
-// const newStack = new Stack();
+// const newTask = new Brackets();
+// console.log(newTask.isEmpty());
+
 module.exports = {
-  newStack: new Stack()
-}
-// console.log(newStack);
-// console.log(newStack.ckeck("[(())]{"));
+  lineAnalizer: new Brackets()
+};
+

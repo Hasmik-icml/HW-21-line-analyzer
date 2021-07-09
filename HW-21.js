@@ -1,7 +1,7 @@
 const stack = require("./HW-21-lineAnalizer");
 
 try {
-  console.log(stack.newStack.ckeck("{}]"));
+  console.log(stack.lineAnalizer.ckeck("[{}"));
 }
 catch(error){
   console.log(error.message);
